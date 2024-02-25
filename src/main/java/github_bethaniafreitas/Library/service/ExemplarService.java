@@ -38,11 +38,14 @@ public class ExemplarService {
 		Exemplar exemplar = obterExemplarDoLivro(livro);
 		var quantidadeAnterior = exemplar.getQuantidade();
 		var novaQuantidade = quantidadeAnterior - input.getQuantidade();
-		if (novaQuantidade < 0) {
-			throw new LivroSemExemplaresException(
-					"quantidade de copias disponiveis que podem ser deletadas: " + quantidadeAnterior);
-		}
-		exemplar.setQuantidade(novaQuantidade);
+		
+	    if (novaQuantidade == 0) {
+	        livro.setAtivo(false);
+	    } else if (novaQuantidade < 0) {
+	        throw new LivroSemExemplaresException(
+	                "Quantidade de cópias disponíveis que podem ser deletadas: " + quantidadeAnterior);
+	    }
+		exemplar.setQuantidade(novaQuantidade);		
 		return exemplarRepository.save(exemplar);
 	}
 
