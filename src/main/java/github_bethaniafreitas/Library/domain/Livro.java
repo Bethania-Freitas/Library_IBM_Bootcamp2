@@ -5,7 +5,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Livro {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -27,24 +26,30 @@ public class Livro {
 
 	@JsonProperty("ano_publicacao")
 	private String anoPublicacao;
-	
+
 	@JsonIgnore
-    @OneToMany(mappedBy = "livro")
-    private List<Exemplar> exemplares;
-    
-    private boolean ativo = true;
-	
+	@OneToMany(mappedBy = "livro")
+	private List<Exemplar> exemplares;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "livro")
+	private List<Reservas> reservas;
+
+	private boolean ativo = true;
+
 	public Livro() {
-		
+
 	}
 
-	public Livro(long id, String autor, String titulo, String anoPublicacao, List<Exemplar> exemplares, boolean ativo) {
+	public Livro(long id, String autor, String titulo, String anoPublicacao, List<Exemplar> exemplares,
+			List<Reservas> reservas, boolean ativo) {
 		super();
 		this.id = id;
 		this.autor = autor;
 		this.titulo = titulo;
 		this.anoPublicacao = anoPublicacao;
 		this.exemplares = exemplares;
+		this.reservas = reservas;
 		this.ativo = ativo;
 	}
 
@@ -95,8 +100,13 @@ public class Livro {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-	
-	
 
+	public List<Reservas> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reservas> reservas) {
+		this.reservas = reservas;
+	}
 
 }

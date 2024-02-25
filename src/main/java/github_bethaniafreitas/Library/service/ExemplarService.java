@@ -21,23 +21,23 @@ public class ExemplarService {
 	LivroRepository livroRepository;
 
 	@Transactional
-	public Exemplar criarExemplar(Long livroId, int quantidade) {
+	public Exemplar criarExemplar(Long livroId, Exemplar input) {
 		Livro livro = livroRepository.findById(livroId)
 				.orElseThrow(() -> new LivroNotFoundException("Livro não encontrado com ID: " + livroId));
 
 		Exemplar exemplar = obterExemplarDoLivro(livro);
-		exemplar.setQuantidade(exemplar.getQuantidade() + quantidade);
+		exemplar.setQuantidade(exemplar.getQuantidade() + input.getQuantidade());
 		return exemplarRepository.save(exemplar);
 	}
 
 	@Transactional
-	public Exemplar deletarExemplar(Long livroId, int quantidade, Exemplar exemplar) {
+	public Exemplar deletarExemplar(Long livroId, Exemplar input) {
 		Livro livro = livroRepository.findById(livroId)
 				.orElseThrow(() -> new LivroNotFoundException("Livro não encontrado com ID: " + livroId));
 
-		Exemplar exemplar2 = obterExemplarDoLivro(livro);
+		Exemplar exemplar = obterExemplarDoLivro(livro);
 		var quantidadeAnterior = exemplar.getQuantidade();
-		var novaQuantidade = quantidadeAnterior - quantidade;
+		var novaQuantidade = quantidadeAnterior - input.getQuantidade();
 		if (novaQuantidade < 0) {
 			throw new LivroSemExemplaresException(
 					"quantidade de copias disponiveis que podem ser deletadas: " + quantidadeAnterior);
