@@ -2,6 +2,7 @@ package github_bethaniafreitas.Library.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,16 +17,19 @@ public class Reservas {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "livro_id")
 	private Livro livro;
 
+
 	private String usuario;
+
 
 	@JsonProperty("data_inicio")
 	private String dataInicio;
+
 
 	@JsonProperty("data_fim")
 	private String dataFim;

@@ -1,5 +1,6 @@
 package github_bethaniafreitas.Library.domain;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +15,7 @@ public class Exemplar {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	private int quantidade;
 	
@@ -45,7 +46,6 @@ public class Exemplar {
 	public Livro getLivro() {
 		return livro;
 	}
-
 
 	public void setLivro(Livro livro) {
 		this.livro = livro;

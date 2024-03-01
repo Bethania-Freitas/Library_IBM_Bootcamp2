@@ -8,4 +8,3 @@ public class LivroNotFoundException extends RuntimeException {
         super(message);
     }
 }
-

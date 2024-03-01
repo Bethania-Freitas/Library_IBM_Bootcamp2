@@ -1,5 +1,8 @@
 package github_bethaniafreitas.Library.service;
 
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +30,12 @@ public class ExemplarService {
 
 		Exemplar exemplar = obterExemplarDoLivro(livro);
 		exemplar.setQuantidade(exemplar.getQuantidade() + input.getQuantidade());
+		livro.setAtivo(true);
 		return exemplarRepository.save(exemplar);
+	}
+	
+	public Optional<Exemplar> obter(long id) {
+	    return exemplarRepository.findById(id);
 	}
 
 	@Transactional
